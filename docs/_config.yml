@@ -33,11 +33,15 @@ github_username:  jekyll
 # Build settings
 domain: jasonbern.github.io       # if you want to force HTTPS, specify the domain without the http at the start, e.g. example.com
 url: https://www.jasonbern.com  # the base hostname and protocol for your site, e.g. http://example.com
-baseurl: /docs      # place folder name if the site is served in a subfolder
+# baseurl: /docs      # place folder name if the site is served in a subfolder
 
 theme: minima
 plugins:
   - jekyll-feed
+minima:
+  social_links:
+    - { platform: github,  user_url: "https://github.com/jekyll/jekyll" }
+    - { platform: twitter, user_url: "https://twitter.com/jekyllrb" }
 
 # Exclude from processing.
 # The following items will not be processed, by default.
