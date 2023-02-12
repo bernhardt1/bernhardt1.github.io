@@ -1,0 +1,27 @@
+
+<div class="section-with-tiny-bottom-spacing">
+    <a href="{{ project.url }}">
+        <img src="{{ project.image1Path }}" alt="Your image" class="image-inline">
+        <h1 class="post-title-inline p-name title-link-text" itemprop="name headline">{{ project.title | escape }}</h1>
+    </a>
+</div>
+<p class="post-meta">
+    {%- if project.jobTitle -%}
+    <span class="post-status">{{ project.jobTitle }}</span>
+    {%- endif -%}
+    {%- if project.primaryTask -%}
+    <span class="post-status"> • {{ project.primaryTask }}</span>
+    {%- endif -%}
+    {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+    <time class="dt-published" datetime="{{ project.date | date_to_xmlschema }}" itemprop="datePublished">
+        • {{ project.date | date: date_format }}
+    </time>
+    {%- if project.isActive -%}
+    <span class="post-status"> - Present</span>
+    {%- endif -%}
+</p>
+<div class="post-content e-content" itemprop="articleBody">
+    <p class="span-inline">
+        {{ project.description }}
+    </p>
+</div>

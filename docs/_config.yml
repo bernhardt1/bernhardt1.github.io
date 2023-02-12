@@ -27,11 +27,14 @@ url: "jasonbern.com" # the base hostname & protocol for your site, e.g. http://e
 markdown: GFM
 twitter_username: jason.bernhardt
 github_username:  bernhardt1
+instagram_username:  jasebernhardt
+linkedin_username:  jasebernhardt
 collections:
   topics:
     output: true
   projects:
     output: true
+    page_excerpts: true
 
 
 
@@ -50,6 +53,8 @@ minima:
   social_links:
     - { platform: github,  user_url: "https://github.com/bernhardt1" }
     - { platform: twitter, user_url: "https://twitter.com/JasonBernhardt1" }
+    - { platform: instagram, user_url: "https://instagram.com/JaseBernhardt" }
+    - { platform: linkedin, user_url: "https://linkedin.com/in/jason-bernhardt" }
 
 # Exclude from processing.
 # The following items will not be processed, by default.

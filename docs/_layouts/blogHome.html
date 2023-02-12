@@ -1,0 +1,195 @@
+---
+layout: default
+---
+<article class="post">
+
+  <div class="page-content">
+    <h1 class="page-heading hero-title-text" align="center">Articles</h1>
+    <br>
+    <h2 class="site-title" align="center">
+      Welcome to my personal notes on self-improvement, productivity, coding, and
+      meditation. These articles are a collection of my thoughts and reflections on the topics that matter to me.
+    </h2>
+  </div>
+
+  <div class="line"></div>
+
+  <div class="page-content background-type-2">
+    <h1 class="page-heading">Articles By Topic</h1>
+  </div>
+
+  
+  {% assign half = site.topics | size | divided_by: 2 %}
+  <div class="row background-type-2">
+    <div class="col-md-6">
+        {% assign topicCount = 0 %}
+        
+        {% for topic in site.topics %}
+          {% if topicCount <= half %}
+          
+            <h2>{{ topic.name | upcase }}</h2>
+            <div class="line-with-space"></div>
+            {% assign count = 0 %}
+            {% for post in site.posts %}
+              {% if count < 3 %}
+                {% if post.topics contains topic.topicName %} <ul>
+                  <a href="{{ post.url }}"><h3 class="title-link-text">{{ post.title }} </h3></a>
+                  {% assign count = count | plus: 1 %}
+                  </ul>
+                  <div class="line-with-space"></div>
+                {% endif %}
+              {% else %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+
+            <div class="section-with-small-bottom-spacing">
+              <a href="{{ topic.url }}"> 
+                {% include arrow-pointing-right.html %}
+                <span class="link-null-text"> Read more about {{ topic.name }}</span>
+              </a>
+            </div>
+
+          {% endif %}
+          {% assign topicCount = topicCount | plus: 1 %}
+
+          
+        {% endfor %}
+      </div>
+      <div class="col-md-6">
+        {% assign topicCount = 0 %}
+        
+        {% for topic in site.topics %}
+          {% if topicCount > half %}
+
+            <h2>{{ topic.name | upcase }}</h2>
+            <div class="line-with-space"></div>
+            {% assign count = 0 %}
+            {% for post in site.posts %}
+              {% if count < 3 %}
+                {% if post.topics contains topic.topicName %} <ul>
+                  <a href="{{ post.url }}"><h3 class="title-link-text">{{ post.title }} </h3></a>
+                  {% assign count = count | plus: 1 %}
+                  </ul>
+                  <div class="line-with-space"></div>
+                {% endif %}
+              {% else %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+
+            <div class="section-with-small-bottom-spacing">
+              <a href="{{ topic.url }}"> 
+                {% include arrow-pointing-right.html %}
+                <span class="link-null-text"> Read more about {{ topic.name }}</span>
+              </a>
+            </div>
+  
+          {% endif %}
+          {% assign topicCount = topicCount | plus: 1 %}
+          
+        {% endfor %}
+      </div>
+    </div>
+
+  <div class="line"></div>
+
+  <div class="page-content ">
+    <h1 class="page-heading">Articles By Date</h1>
+  </div>
+
+
+  {% assign posts = site.posts %}
+  
+  <div class=" ">
+    <h2>Select Year</h2>
+  </div>
+  <div id="year-buttons" class="section-with-small-bottom-spacing">
+  </div>
+  <div class="line"></div>
+
+
+  <!-- {%- if page.list_title -%}
+    <h2 class="post-list-heading">{{ page.list_title }}</h2>
+  {%- endif -%} -->
+
+  <ul class="post-list">
+    {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+    <li>
+      <span class="post-meta">{{ post.date | date: date_format }}</span>
+      <h3>
+        <a class="title-link-text" href="{{ post.url | relative_url }}">
+          {{ post.title | escape }}
+        </a>
+      </h3>
+    </li>
+  </ul>
+
+
+  <script>
+    // handle SETTING UP THE year buttons to filter all posts by year
+    const blogPosts = [
+      {% for post in site.posts %}
+      { title: '{{ post.title | escape }}', date: '{{ post.date | date: "%Y-%m-%d" }}', url: '{{ post.url }}'  },
+      {% endfor %}
+    ];
+  
+    // Get the container and the two elements we will be working with
+    const yearButtons = document.getElementById("year-buttons");
+    // const blogPosts = document.getElementById("blog-posts");
+  
+    // Create an array of all the years that contain blog posts
+    const years = [2023, 2022, 2021];
+  
+    // Loop through the years and create a button for each one
+    for (let year of years) {
+      const button = document.createElement("button");
+      button.textContent = year.toString().toUpperCase();
+      button.href = "#";
+      button.classList.add("button-primary");
+      button.classList.add("buttons-horizontal-spacing");
+      button.addEventListener("click", () => FilterArticlesByYear(year));
+      yearButtons.appendChild(button);
+    }
+
+    // ACTUAL FUNCTION THAT FILTERS THE POSTS AND ADDS THEM TO THE PAGE
+    function FilterArticlesByYear(year) {
+      
+      const postList = document.querySelector('.post-list');
+      postList.innerHTML = '';
+      // First, we will loop through all the blog posts
+      for (let i = 0; i < blogPosts.length; i++) {
+        // Next, we will get the current post's date
+        const post = blogPosts[i];
+            const postDate = new Date(post.date);
+            // Then, we will check if the post's year matches the selected year
+            if (postDate.getFullYear() === year) {
+                // If the post's year matches, we will show the post
+                postList.innerHTML += `
+                  <a class="title-link-text inline-3-item-link" href="${post.url}">
+                    <span class="post-meta span-inline">${new Date(post.date).toLocaleDateString("en-us", { month: "long", day: "numeric" })}</span>
+                    <p class="span-inline">
+                        ${post.title}
+                    </p>
+                    {% include arrow-pointing-right.html %}
+                  </a>
+                  <div class="line"></div>
+                `;
+
+            } else {
+            }
+        }
+    };
+
+    window.onload = function() {
+      FilterArticlesByYear(2023);
+    }
+  </script>
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+
+
+
+</article>

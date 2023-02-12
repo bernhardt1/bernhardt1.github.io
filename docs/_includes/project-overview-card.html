@@ -1,0 +1,33 @@
+<div class="project-card">
+    <div class="project-card-row">
+        <div class="project-card-col project-card-label">Position:</div>
+        <div class="project-card-col project-card-value">{{ include.position }}</div>
+    </div>
+    <div class="project-card-row">
+        <div class="project-card-col project-card-label">Company:</div>
+        <div class="project-card-col project-card-value">{{ include.company }}</div>
+    </div>
+    <div class="project-card-row">
+        <div class="project-card-col project-card-label">Dates:</div>
+        <div class="project-card-col project-card-value">
+            {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+            
+            <time class="dt-published" datetime="{{ include.dates | date_to_xmlschema }}" itemprop="datePublished">
+                {{ include.dates | date: date_format }}
+            </time>
+            {%- if include.isActive -%}
+            <span class="post-status"> - Present</span>
+            {%- endif -%}
+        </div>
+    </div>
+    <div class="project-card-row">
+        <div class="project-card-col project-card-label">Work:</div>
+        <div class="project-card-col project-card-value">{{ include.contributions }}</div>
+    </div>
+    <div class="project-card-row">
+        <div class="project-card-col project-card-label">Link:</div>
+        <div class="project-card-col project-card-value">
+        <a target=”_blank href="{{ include.link }}">{{ include.link }}</a>
+        </div>
+    </div>
+</div>

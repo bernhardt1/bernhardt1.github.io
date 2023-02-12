@@ -1,0 +1,27 @@
+---
+layout: default
+---
+<article class="post">
+
+  <div class="page-content">
+    <h1 class="page-heading hero-title-text" align="center">Projects</h1>
+    <br>
+    <h2 class="site-title" align="center">
+      This is a collection of my most recent projects. I occasionally take on new work if the project is exciting and I can provide a big value-add. If you need some help, send me a message, and <a class="title-link-text" href="mailto:jasonbernhardt12@gmail.com">let's chat</a>. 
+    </h2>
+  </div>
+
+  <div class="line section-with-small-bottom-spacing"></div>
+
+
+  {% for project in site.projects %}
+    {% include project-preview.html project=project %}
+    <div class="section-with-small-bottom-spacing"></div>
+  {% endfor %}
+
+
+
+
+
+
+</article>

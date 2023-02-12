@@ -3,9 +3,6 @@ layout: default
 ---
 
 <div class="home">
-  {%- if page.title -%}
-    <h1 class="page-heading">{{ page.title }}</h1>
-  {%- endif -%}
 
   {{ content }}
 
@@ -14,8 +11,8 @@ layout: default
       <div class="row">
         <div class="col-md-6">
           <h1 class="page-heading">Hi, I'm Jason</h1>
-          <p>I'm a software engineer & game developer with a passion for startups.</p>
-          <p>I also like to write for fun.</p>
+          <h2 class="site-title">I'm a software engineer & game maker with a passion for startups.</p>
+          <h2>I also like to write for fun.</p>
         </div>
         <div class="col-md-6">
           <img src="/assets/images/Jason-portrait-round.png" alt="Your image" class="img-fluid">
@@ -24,36 +21,38 @@ layout: default
     </div>
   </div>
 
-  <div class="home-section buttons">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <a href="#" class="button-primary">Read my Articles</a>
-            </div>
-            <div class="col-md-6">
-                <a href="#" class="button-secondary">Browse my Work</a>
-            </div>
-        </div>
-      </div>
+  <div class="buttons section-with-bottom-spacing">
+    <div class="button-container">
+        <button href="#" class="button-primary">{{ "Read my Articles" | upcase }}</button>
+        <button href="#" class="button-primary">{{ "Browse my Work" | upcase }}</button>
+    </div>
   </div>
+
+  <div class="line"></div>
 
 
   <div class="home-section latest-articles-and-current-project">
     <div class="container">
       <div class="row">
         <div class="col-md-6">
-          <h2>Latest Articles</h2>
+          <h2 class="post-list-heading">Latest Articles</h2>
         </div>
         <div class="col-md-6">
-          <h2>Current Project</h2>
+          <h2 class="post-list-heading">Current Project</h2>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
           <ul class="latest-articles">
+            <hr>
             {% for post in site.posts limit:6 %}
+            
               <li>
-                <a href="{{ post.url }}">{{ post.title }}</a>
+                <a href="{{ post.url }}">
+                  <h3 class="title-link-text">
+                    {{ post.title }}
+                  </h3>
+                </a>
               </li>
               <hr>
             {% endfor %}
@@ -61,72 +60,21 @@ layout: default
         </div>
         <div class="col-md-6">
           <div class="current-project">
-            <img src="project-image.jpg" alt="Project Image">
-            <h3>Project Title</h3>
-            <p>A brief description of the project goes here. It can be as long or as short as necessary.</p>
+            {% for project in site.projects limit:1 %}
+              <a href="{{ project.url }}">
+                <img class="current-project-image" src="{{ project.image1Path }}" alt="Project Image">
+                <div class="current-project-info">
+                    <h3 class="title-link-text">{{ project.title }}</h3>
+                    <p class="title-link-text">{{ project.description }}</p>
+                </div>
+              </a>
+            {% endfor %}
           </div>
         </div>
       </div>
     </div>
   </div>
 
-
-  {% if site.paginate %}
-    {% assign posts = paginator.posts %}
-  {% else %}
-    {% assign posts = site.posts %}
-  {% endif %}
-
-
-  {%- if posts.size > 0 -%}
-    {%- if page.list_title -%}
-      <h2 class="post-list-heading">{{ page.list_title }}</h2>
-    {%- endif -%}
-    <ul class="post-list">
-      {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-      {%- for post in posts -%}
-      <li>
-        <span class="post-meta">{{ post.date | date: date_format }}</span>
-        <h3>
-          <a class="post-link" href="{{ post.url | relative_url }}">
-            {{ post.title | escape }}
-          </a>
-        </h3>
-        {%- if site.show_excerpts -%}
-          {{ post.excerpt }}
-        {%- endif -%}
-      </li>
-      {%- endfor -%}
-    </ul>
-
-    {% if site.paginate %}
-      <div class="pager">
-        <ul class="pagination">
-        {%- if paginator.previous_page %}
-          <li><a href="{{ paginator.previous_page_path | relative_url }}" class="previous-page">{{ paginator.previous_page }}</a></li>
-        {%- else %}
-          <li><div class="pager-edge">•</div></li>
-        {%- endif %}
-          <li><div class="current-page">{{ paginator.page }}</div></li>
-        {%- if paginator.next_page %}
-          <li><a href="{{ paginator.next_page_path | relative_url }}" class="next-page">{{ paginator.next_page }}</a></li>
-        {%- else %}
-          <li><div class="pager-edge">•</div></li>
-        {%- endif %}
-        </ul>
-      </div>
-    {%- endif %}
-
-  {%- endif -%}
-
-  <h1 class="post-list-heading">Articles by Topic</h1>
-
-
-  {% for topic in site.topics %}
-  <li>
-      <h2><a href="{{ topic.url }}">{{ topic.name }}</a></h2>
-      <p>{{ topic.content | markdownify }}</p>
-  </li>
-  {% endfor %}
+  {% include contact-me.html %}
 
 </div>
